@@ -1,0 +1,85 @@
+
+Plots of the melting curve analysis
+-----------------------------------
+---
+date: `r Sys.time()`
+output: html_document
+---
+--------------------------------------
+  
+  ````{r, echo=FALSE, include = FALSE}
+require(ggplot2)
+require(AptaqPCR)
+file1 <- system.file("exData", "multiapt31.csv", package = "AptaqPCR")
+read.datacsv <- ReadAptaqPCR(file1)
+meandata <- mean.apt(read.datacsv)
+diffdata <- diff.apt(meandata)
+````
+
+----------------------------------------------------------
+Combined replicates (Fluorescence vs Temperature)
+----------------------------------------------------------
+  ````{r, echo=FALSE}
+apt.plot(meandata, conc = c("0 pM","30.50 pM", "15.25 pM","7.62 pM","3.81 pM","1.90 pM","0.95 pM",
+"0.47 pM"))
+````
+
+--------------------------------------------------------------
+First derivative of combined replicates (dF/dT vs Temperature)
+--------------------------------------------------------------
+  ````{r, echo=FALSE}
+apt.plot(diffdata, plot = "Diff", conc = c("0 pM","30.50 pM","15.25 pM","7.62 pM","3.81 pM","1.90 pM","0.95 pM",
+"0.47 pM"))
+````
+
+---------------------------------------------------------------------------
+Negative of first derivative of combined replicates (-dF/dT vs Temperature)
+---------------------------------------------------------------------------
+  ````{r, echo=FALSE}
+apt.plot(diffdata, plot = "negDiff", conc = c("0 pM","30.50 pM", "15.25 pM","7.62 pM","3.81 pM",
+"1.90 pM","0.95 pM","0.47 pM"))
+````
+--------------------------------------------------------------
+
+  ````{r, echo=FALSE, include = FALSE}
+data <- slot(diffdata,"diffData")
+temp <- data[,"temp"]
+````
+
+--------------------------------------------------------------
+Plots of Gaussian Fitting
+--------------------------------------------------------------
+  ````{r, echo=FALSE}
+nc.plot <- apt.fit(data[,"nc"],44,1,3,53,1,3,"BFGS",2e-9,temp,"0 pM")
+b.plot <- apt.fit(data[,"b"],44,1,3,53,1,3,"BFGS",2e-9,temp,"30.50 pM")
+c.plot <- apt.fit(data[,"c"],44,1,3,53,1,3,"BFGS",2e-9,temp,"15.25 pM")
+d.plot <- apt.fit(data[,"d"],44,1,3,53,1,3,"BFGS",2e-9,temp,"7.62 pM")
+e.plot <- apt.fit(data[,"e"],44,1,3,53,1,3,"BFGS",2e-9,temp,"3.81 pM")
+f.plot <- apt.fit(data[,"f"],44,1,3,53,1,3,"BFGS",2e-9,temp,"1.90 pM")
+g.plot <- apt.fit(data[,"g"],44,1,3,53,1,3,"BFGS",2e-9,temp,"0.95 pM")
+h.plot <- apt.fit(data[,"h"],44,1,3,53,1,3,"BFGS",2e-9,temp,"0.47 pM")
+grid.arrange(nc.plot, b.plot, c.plot, d.plot, e.plot, f.plot, g.plot, h.plot, ncol = 2, nrow = 4)
+````
+--------------------------------------------------------------
+
+  ````{r, echo=FALSE, include = FALSE}
+nc <- apt.fit(data[,"nc"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+b <- apt.fit(data[,"b"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+c <- apt.fit(data[,"c"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+d <- apt.fit(data[,"d"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+e <- apt.fit(data[,"e"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+f <- apt.fit(data[,"f"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+g <- apt.fit(data[,"g"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+h <- apt.fit(data[,"h"],44,1,3,53,1,3,"BFGS",2e-9,temp)
+aptfitalls <- apt.fit.value(nc,b,c,d,e,f,g,h,
+conc = c("0 pM","30.50 pM", "15.25 pM","7.62 pM","3.81 pM","1.90 pM","0.95 pM",
+"0.47 pM"))
+````
+
+---------------------------------------------------------------------------
+Plots of Gaussian Means of Temperature vs Concentration
+---------------------------------------------------------------------------
+  ````{r, echo=FALSE}
+tempconc.plot(aptfitalls, conc = c(0,30.50,15.25,7.62,3.81,1.90,0.95),
+xlabel = "Concentration (pM)")
+````

@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}S4 Class {\tt aptaqpcr}}{2}{section.2}
+\contentsline {section}{\numberline {3}Reading the fluorescent data}{2}{section.3}
+\contentsline {section}{\numberline {4}Combine the replicates}{3}{section.4}
+\contentsline {section}{\numberline {5}Compute the first derivative of the combined replicates}{3}{section.5}
+\contentsline {section}{\numberline {6}Plotting the results of the combined replicates, first derivative and negative of the first derivative of the combined replicates}{4}{section.6}
+\contentsline {section}{\numberline {7}Two Gaussian fitting to compute the Gaussian parameters}{5}{section.7}
+\contentsline {section}{\numberline {8}Compute the 95 percent confidence intervals of the Gaussian means}{6}{section.8}
+\contentsline {section}{\numberline {9}Plot the Gaussian Mean (Temperature) vs concentration}{7}{section.9}
+\contentsline {section}{\numberline {10}Grapphical User Interface}{7}{section.10}
+\contentsline {section}{\numberline {11}Report generation of the plots}{7}{section.11}

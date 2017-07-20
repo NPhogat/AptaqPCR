@@ -1,0 +1,11 @@
+import(Biobase, methods, ggplot2, stats, RColorBrewer, graphics)
+
+importFrom(shiny, runApp)
+importFrom(gridExtra, arrangeGrob, cbind.gtable, ellipseGrob, grid.arrange, grid.ellipse, grid.ngon,
+           grid.table, marrangeGrob, ngonGrob, polygon_regular, rbind.gtable,
+           tableGrob, ttheme_default, ttheme_minimal)
+
+exportClasses(aptaqpcr)
+
+export(ReadAptaqPCR, mean.apt, diff.apt, apt.plot, apt.fit, apt.fit.value,
+       tempconc.plot, mean.conf, AptaqPCR.gui)

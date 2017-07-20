@@ -1,0 +1,171 @@
+Melting curve analysis for diagnostics
+--------------------------------------------------------------------------
+
+Date: `r Sys.time()`
+-----------------------------------------
+
+Combined replicates plots (Fluoerescence vs Temperature):
+---------------------------------------------------------
+````{r, echo=FALSE}
+x <- meandata()
+nc.plot <- ggplot(x, aes(temp,nc))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[1])
+    b.plot <- ggplot(x, aes(temp,b))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[2])
+    c.plot <- ggplot(x, aes(temp,c))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[3])
+    d.plot <- ggplot(x, aes(temp,d))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[4])
+    e.plot <- ggplot(x, aes(temp,e))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[5])
+    f.plot <- ggplot(x, aes(temp,f))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[6])
+    g.plot <- ggplot(x, aes(temp,g))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[7])
+    h.plot <- ggplot(x, aes(temp,h))+
+      geom_point(colour="blue")+ ylab("Fluorescence")+ xlab(xldr())+ ggtitle(concnamer()[8])
+    grid.arrange(nc.plot,b.plot,c.plot,d.plot,e.plot,f.plot,g.plot,h.plot,ncol = 2, nrow = 4)
+````
+
+
+First derivative plots (dF/dT vs Temperature):
+---------------------------------------------------------
+````{r, echo=FALSE}
+x <- diffdata()
+    temp <- x[,"temp"]
+    nc.plot <- ggplot(x, aes(temp,nc))+
+      geom_point(colour="steel blue")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[1])
+    b.plot <- ggplot(x, aes(temp,b))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[2])
+    c.plot <- ggplot(x, aes(temp,c))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[3])
+    d.plot <- ggplot(x, aes(temp,d))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[4])
+    e.plot <- ggplot(x, aes(temp,e))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[5])
+    f.plot <- ggplot(x, aes(temp,f))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[6])
+    g.plot <- ggplot(x, aes(temp,g))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[7])
+    h.plot <- ggplot(x, aes(temp,h))+
+      geom_point(colour="steel blue")+ ylab("dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[8])
+    grid.arrange(nc.plot,b.plot,c.plot,d.plot,e.plot,f.plot,g.plot,h.plot,ncol = 2, nrow = 4)
+````
+
+
+Negative of first derivative plots (-dF/dT vs Temperature):
+-------------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+x1 <- diffdata()
+    temp <- x1[,"temp"]
+    x2 <- x1[-1]
+    x3 <- -(x2)
+    x <- cbind(temp,x3)
+    nc.plot <- ggplot(x, aes(temp,nc))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[1])
+    b.plot <- ggplot(x, aes(temp,b))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[2])
+    c.plot <- ggplot(x, aes(temp,c))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[3])
+    d.plot <- ggplot(x, aes(temp,d))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[4])
+    e.plot <- ggplot(x, aes(temp,e))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[5])
+    f.plot <- ggplot(x, aes(temp,f))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[6])
+    g.plot <- ggplot(x, aes(temp,g))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[7])
+    h.plot <- ggplot(x, aes(temp,h))+
+      geom_point(colour="green")+ ylab("-dF/dT")+ xlab(xldr())+ ggtitle(concnamer()[8])
+    grid.arrange(nc.plot,b.plot,c.plot,d.plot,e.plot,f.plot,g.plot,h.plot,ncol = 2, nrow = 4)
+````
+
+
+Two- Gaussian fitting plots:
+-------------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+data <- diffdata()
+    temp <- data[,"temp"]
+    nc.plot <- apt.fit(data[,"nc"],ncr()[1],ncr()[2],ncr()[3],ncr()[4],ncr()[5],ncr()[6],methr(),
+                       cvaluer(),temp,concnamer()[1])
+    b.plot <- apt.fit(data[,"b"],br()[1],br()[2],br()[3],br()[4],br()[5],br()[6],methr(),
+                      cvaluer(),temp,concnamer()[2])
+    c.plot <- apt.fit(data[,"c"],cr()[1],cr()[2],cr()[3],cr()[4],cr()[5],cr()[6],methr(),
+                      cvaluer(),temp,concnamer()[3])
+    d.plot <- apt.fit(data[,"d"],dr()[1],dr()[2],dr()[3],dr()[4],dr()[5],dr()[6],methr(),
+                      cvaluer(),temp,concnamer()[4])
+    e.plot <- apt.fit(data[,"e"],er()[1],er()[2],er()[3],er()[4],er()[5],er()[6],methr(),
+                      cvaluer(),temp,concnamer()[5])
+    f.plot <- apt.fit(data[,"f"],fr()[1],fr()[2],fr()[3],fr()[4],fr()[5],fr()[6],methr(),
+                      cvaluer(),temp,concnamer()[6])
+    g.plot <- apt.fit(data[,"g"],gr()[1],gr()[2],gr()[3],gr()[4],gr()[5],ncr()[6],methr(),
+                      cvaluer(),temp,concnamer()[7])
+    h.plot <- apt.fit(data[,"h"],hr()[1],hr()[2],hr()[3],hr()[4],hr()[5],hr()[6],methr(),
+                      cvaluer(),temp,concnamer()[8])
+    grid.arrange(nc.plot, b.plot, c.plot, d.plot, e.plot, f.plot, g.plot, h.plot,
+                 ncol = 2, nrow = 4)
+````
+
+
+Two- Gaussian fitting results:
+-------------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+x <- as.data.frame(fit.data())
+row.names(x) <- c("Mean1","SD1","A1","Mean2","SD2","A2")
+knitr::kable(x, format = "markdown")
+````
+
+
+Gaussian means of temperature:
+------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+x <- as.data.frame(conf.mean())
+row.names(x) <- c("Mean1","Mean2")
+knitr::kable(x, format = "markdown")
+````
+
+
+95 percent confidence intervals of the Gaussian means of temperature:
+------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+x <- as.data.frame(conf.data())
+row.names(x) <- c("conf.mean1","conf.mean2")
+knitr::kable(x,format = "markdown")
+````
+
+
+Plots of Gaussian Means vs Temperature:
+------------------------------------------------------------------------------------
+````{r, echo=FALSE, results='asis'}
+x <- fit.data()
+    x.new <- new("aptaqpcr",fitData = x)
+    gmc.plot <- tempconc.plot(x.new, conc =  c(concr()), xlabel = xlr())
+    gmc.plot
+````    
+
+    
+Settings used during implementation:
+--------------------------------------------
+````{r, echo=FALSE, results='asis'}
+cat("Select the type of file: ", input$filetype, "\n\n")
+cat("Name of plots on the basis of the COncentration: ", input$concname, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 1st 2Gaussian plot: ", input$nc, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 2nd 2Gaussian plot: ", input$b, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 3rd 2Gaussian plot: ", input$c, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 4th 2Gaussian plot: ", input$d, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 5th 2Gaussian plot: ", input$e, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 6th 2Gaussian plot: ", input$f, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 7th 2Gaussian plot: ", input$g, "\n\n")
+cat("initial values of m1,sd1,A1,m2,sd2 and A2 for 8th 2Gaussian plot: ", input$h, "\n\n")
+cat("Provide the reltol value: ", input$cvalue, "\n\n")
+cat("Provide the method for Gaussian fitting: ", input$meth, "\n\n")
+cat("Values of concentration: ", input$conc, "\n\n")
+cat("Define the xlabel for the final plot: ", input$xl, "\n\n")
+````
+
+Session Information:
+--------------------------------------------
+````{r, echo=FALSE, results='asis'}
+sessionInfo("AptaqPCR")
+````
+
