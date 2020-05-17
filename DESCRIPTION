@@ -3,7 +3,7 @@ Type: Package
 Title: Melting curve analysis for diagnostics
 Version: 0.1.0
 Author: Navneet Phogat, Matthias Kohl
-Maintainer: Matthias Kohl <Matthias.Kohl@stamats.de>
+Maintainer: Navneet Phogat <navneet84@rocketmail.com>
 Description: Functions and Graphical User Interface for melting curve analysis for diagnostics
 Depends: R (>= 3.4.0), Biobase, methods, ggplot2, gridExtra, stats, RColorBrewer, graphics
 License: License: LGPL-3
